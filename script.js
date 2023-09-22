@@ -1,21 +1,31 @@
 const timeEl = document.getElementById('time');
 const dateEl = document.getElementById('date');
-const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const days = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRINDAY', 'SATURDAY'];
+const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const container = document.querySelector('.container');
+const search = document.querySelector('.search-box button');
+const weatherBox = document.querySelector('.weather-box');
+const weatherDetails = document.querySelector('.weather-details');
+const error404 = document.querySelector('.not-found');
+
+
 
 setInterval(() => {
+
     const time = new Date();
     const month = time.getMonth();
     const date = time.getDate();
     const day = time.getDay();
     const hour = time.getHours();
-    const minutes = time.getMinutes();
-    const ampm = hour >=12 ? 'PM' : 'AM'
+    const minute = time.getMinutes();
+    const ampm = hour >= 12 ? 'PM' : 'AM';
 
     timeEl.innerHTML = (hour < 10 ? '0' + hour : hour) + ':' + (minute < 10 ? '0' + minute : minute) + ' ' + `<span id="am-pm">${ampm}</span>`;
-    dateEl.innerHTML = days[day] + ', ' + date+ ' ' + months[month]
+    dateEl.innerHTML = days[day] + ', ' + date + ' ' + months[month];
 
 }, 1000);
+
+
 
 search.addEventListener('click', () => {
 
@@ -30,11 +40,12 @@ search.addEventListener('click', () => {
         .then(json => {
 
             if (json.cod === '404') {
-                container.style.height = '300px';
+                container.style.height = '400px';
                 weatherBox.style.display = 'none';
                 weatherDetails.style.display = 'none';
                 error404.style.display = 'block';
                 error404.classList.add('fadeIn');
+               
                 return;
             }
 
